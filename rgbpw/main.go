@@ -30,8 +30,8 @@ func main() {
 	}
 
 	opsMgrPassword := "pivotalcf"
-	if len(os.Args) > 2 {
-		opsMgrPassword = os.Args[2]
+	if len(os.Args) > 3 {
+		opsMgrPassword = os.Args[3]
 	}
 
 	opsManager, err := system.NewOpsManagerClient(hostName, opsMgrUser, opsMgrPassword, logger)
