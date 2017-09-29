@@ -19,7 +19,7 @@ func main() {
 		os.Exit(-1)
 	}
 
-	hostName := os.Args[1]
+	hostName := strings.ToLower(os.Args[1])
 	if !strings.Contains(hostName, ".") {
 		hostName = fmt.Sprintf("pcf.%s.springapps.io", hostName)
 	}
