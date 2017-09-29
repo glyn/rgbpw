@@ -108,6 +108,16 @@ func (properties properties) AdminCredentials() property {
 	return property{}
 }
 
+func (properties properties) AdminClientCredentials() property {
+	for _, p := range properties {
+		if p.Identifier == "admin_client_credentials" {
+			return p
+		}
+	}
+	panic("Can't find admin_client_credentials in uaa job")
+	return property{}
+}
+
 type property struct {
 	Identifier string          `json:"identifier"`
 	Value      json.RawMessage `json:"value"`
@@ -137,8 +147,15 @@ func (client *opsmanClient) GetAdminCredentials() (username, password string, er
 	if err != nil {
 		return "", "", err
 	}
-	//fmt.Printf("installationSetting.Products.CF().Jobs %d\n", len(installationSetting.Products.CF().Jobs))
 	return installationSetting.Products.CF().Jobs.UAA().Properties.AdminCredentials().Credentials()
+}
+
+func (client *opsmanClient) GetAdminClientCredentials() (username, password string, err error) {
+	installationSetting, err := client.GetInstallationSettings()
+	if err != nil {
+		return "", "", err
+	}
+	return installationSetting.Products.CF().Jobs.UAA().Properties.AdminClientCredentials().Credentials()
 }
 
 func getAuthorization(opsManagerURL, username, password string, logger lager.Logger) (string, error) {
