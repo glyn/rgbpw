@@ -4,7 +4,7 @@ import (
 	"os"
 	"code.cloudfoundry.org/lager"
 
-	"github.com/pivotalservices/cfops/system"
+	"github.com/glyn/rgbpw/system"
 	"fmt"
 	"strings"
 )
